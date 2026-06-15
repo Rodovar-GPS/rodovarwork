@@ -78,7 +78,7 @@ export default function Login({ onLoginSuccess }: LoginProps) {
         role: matchedUser.role
       });
     } else {
-      setError('Credenciais incorretas ou funcionário não cadastrado. Verifique o e-mail ou utilize o acesso por cliques de testes abaixo!');
+      setError('Credenciais incorretas ou funcionário não cadastrado. Por favor, verifique seus dados.');
     }
   };
 
@@ -199,12 +199,9 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-2">
-                <label htmlFor="password-input" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
-                  Senha
-                </label>
-                <span className="text-[11px] text-amber-500 font-mono">Senha de teste: <span className="underline select-all">123456</span></span>
-              </div>
+              <label htmlFor="password-input" className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
+                Senha
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-zinc-500">
                   <KeyRound className="w-4 h-4" />
@@ -230,48 +227,9 @@ export default function Login({ onLoginSuccess }: LoginProps) {
             </button>
           </form>
 
-          {/* Divisor de Teste Rápido */}
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center" aria-hidden="true">
-              <div className="w-full border-t border-zinc-800"></div>
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-neutral-950 px-2 text-zinc-400 font-mono tracking-widest text-[10px]">
-                Acesso Rápido por Perfil (Demo)
-              </span>
-            </div>
-          </div>
-
-          {/* Grid de Contas Rápidas por Setor */}
-          <div className="grid grid-cols-2 gap-3 max-h-60 overflow-y-auto pr-1">
-            {allUsers.map((user) => (
-              <button
-                key={user.id}
-                id={`quick-login-${user.id}`}
-                onClick={() => handleQuickLogin(user.id)}
-                type="button"
-                className="p-3 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-amber-400/40 rounded-xl text-left transition duration-150 group"
-              >
-                <div className="flex items-center space-x-2 mb-1">
-                  <span className={`w-2.5 h-2.5 rounded-full ${
-                    user.sector === 'Comercial' ? 'bg-amber-400' :
-                    user.sector === 'Expedição' ? 'bg-sky-400' : 'bg-emerald-500'
-                  }`}></span>
-                  <span className="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">{user.sector}</span>
-                </div>
-                <div className="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors truncate">
-                  {user.name.split(' ')[0]}
-                </div>
-                <div className="text-xs text-zinc-500 truncate mt-0.5">
-                  {user.role || 'Funcionário'}
-                </div>
-              </button>
-            ))}
-          </div>
-
-          <div className="text-center">
-            <p className="text-xs text-zinc-500">
-              * Perfil de login autentica com simulação de persistência ativa.
+          <div className="text-center pt-4 border-t border-zinc-900">
+            <p className="text-xs text-zinc-500 font-mono">
+              * Acesso corporativo protegido e monitorado por Firebase em tempo real.
             </p>
           </div>
 
