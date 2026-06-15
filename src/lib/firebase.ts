@@ -71,11 +71,12 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
 
 // Validate Connection to Firestore as per Firebase Integration Skill
 async function testConnection() {
+  if (typeof window === 'undefined') return;
   try {
     await getDocFromServer(doc(db, 'test', 'connection'));
   } catch (error) {
     if (error instanceof Error && error.message.includes('the client is offline')) {
-      console.error("Please check your Firebase configuration.");
+      console.warn("Please check your Firebase configuration.");
     }
   }
 }
