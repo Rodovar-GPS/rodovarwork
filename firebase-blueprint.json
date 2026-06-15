@@ -1,0 +1,105 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Rodovar staff user profile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique user ID" },
+        "name": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "format": "email" },
+        "sector": { "type": "string", "enum": ["Comercial", "Expedição", "Geral"] },
+        "avatarColor": { "type": "string" },
+        "avatarText": { "type": "string", "maxLength": 4 },
+        "passwordHash": { "type": "string" },
+        "role": { "type": "string" }
+      },
+      "required": ["id", "name", "email", "sector", "avatarColor", "avatarText"]
+    },
+    "TaskCard": {
+      "title": "TaskCard",
+      "description": "Rodovar logistics task and load tracking card",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string" },
+        "title": { "type": "string", "maxLength": 200 },
+        "description": { "type": "string", "maxLength": 2000 },
+        "columnId": { "type": "string" },
+        "sector": { "type": "string", "enum": ["Comercial", "Expedição", "Geral"] },
+        "priority": { "type": "string", "enum": ["Baixa", "Média", "Alta"] },
+        "dueDate": { "type": "string" },
+        "value": { "type": "number" },
+        "freteEmpresa": { "type": "number" },
+        "freteMotorista": { "type": "number" },
+        "distance": { "type": "string" },
+        "origin": { "type": "string" },
+        "destination": { "type": "string" },
+        "driverName": { "type": "string" },
+        "driverPhone": { "type": "string" },
+        "driverPlate": { "type": "string" },
+        "driverRating": { "type": "string" },
+        "clientName": { "type": "string" },
+        "clientPhone": { "type": "string" },
+        "clientRating": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "checklist": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "text": { "type": "string" },
+              "completed": { "type": "boolean" }
+            },
+            "required": ["id", "text", "completed"]
+          }
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "userId": { "type": "string" },
+              "userName": { "type": "string" },
+              "userSector": { "type": "string" },
+              "text": { "type": "string" },
+              "timestamp": { "type": "string" }
+            },
+            "required": ["id", "userId", "userName", "userSector", "text", "timestamp"]
+          }
+        },
+        "activity": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "action": { "type": "string" },
+              "timestamp": { "type": "string" },
+              "userName": { "type": "string" },
+              "userSector": { "type": "string" }
+            },
+            "required": ["id", "action", "timestamp", "userName", "userSector"]
+          }
+        },
+        "attachments": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["id", "code", "title", "columnId", "sector", "priority", "value", "freteEmpresa", "freteMotorista"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Collection of all authorized active employee profiles"
+    },
+    "/cards/{cardId}": {
+      "schema": "TaskCard",
+      "description": "Collection of active load management boards and cards"
+    }
+  }
+}

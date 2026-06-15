@@ -1,0 +1,6 @@
+{
+  "name": "Rodovar Trello",
+  "description": "Sistema de gestão de cargas e quadro de tarefas estilo Trello com foco em produtividade, logística e colaboração em tempo real para os setores Comercial, Expedição e Financeiro.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
