@@ -235,17 +235,19 @@ export default function App() {
   // Register a new employee by master admin
   const handleAddUser = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newUserName.trim() || !newUserEmail.trim()) return;
+    const cleanedEmail = newUserEmail.trim().toLowerCase();
+    const cleanedName = newUserName.trim();
+    if (!cleanedName || !cleanedEmail) return;
 
     // Email duplication check
     const allUsers = [...activeMockUsers, ...registeredUsers];
-    if (allUsers.some(u => u.email.toLowerCase() === newUserEmail.trim().toLowerCase())) {
+    if (allUsers.some(u => u.email && u.email.trim().toLowerCase() === cleanedEmail)) {
       alert('Este e-mail já está sendo utilizado por outro funcionário.');
       return;
     }
 
     // Build initials for avatar
-    const initials = newUserName.trim().split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    const initials = cleanedName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
     
     // Choose dynamic color
     const bgColors = [
@@ -260,12 +262,12 @@ export default function App() {
 
     const newUser = {
       id: 'usr-custom-' + Date.now(),
-      name: newUserName.trim(),
-      email: newUserEmail.trim(),
+      name: cleanedName,
+      email: cleanedEmail,
       sector: newUserSector,
       avatarColor: randomBg,
       avatarText: initials || 'RD',
-      passwordHash: newUserPassword || '123456',
+      passwordHash: newUserPassword.trim() || '123456',
       role: newUserRole.trim() || 'Colaborador'
     };
 

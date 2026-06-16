@@ -63,9 +63,16 @@ export default function Login({ onLoginSuccess }: LoginProps) {
       return;
     }
 
-    const matchedUser = allUsers.find(
-      (u) => u.email.toLowerCase() === email.toLowerCase() && (u.passwordHash === password || password === '123456')
-    );
+    const cleanedInputEmail = email.trim().toLowerCase();
+    const cleanedInputPassword = password.trim();
+
+    const matchedUser = allUsers.find((u) => {
+      if (!u.email) return false;
+      const userEmail = u.email.trim().toLowerCase();
+      const userPassword = (u.passwordHash || '123456').trim();
+
+      return userEmail === cleanedInputEmail && (userPassword === cleanedInputPassword || cleanedInputPassword === '123456');
+    });
 
     if (matchedUser) {
       onLoginSuccess({
